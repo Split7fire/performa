@@ -1,36 +1,88 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: performa
+name: performa-nvidia
 # description will be included in the image's metadata
-description: This is my personal OS image.
+description: A performant spin with the COSMIC desktop.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
+base-image: ghcr.io/ublue-os/base-main
 image-version: latest # You can pin to a specific version of Fedora as well
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
-  - type: files
-    files:
-      - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+  - type: akmods
+    # Nvidia closed source install
+    install: [] 
+    nvidia-driver: nvidia
 
-  - type: dnf
-    repos:
-      copr:
-        - atim/starship
+    # COSMIC install
+  - type: rpm-ostree
     install:
-      packages:
-        - micro
-        - starship
-    remove:
-      packages:
-        # example: removing firefox (in favor of the flatpak)
-        # "firefox" is the main package, "firefox-langpacks" is a dependency
-        - firefox
-        - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+      - cosmic-session
+      - cosmic-comp
+      - cosmic-panel
+      - cosmic-launcher
+      - cosmic-app-library
+      - cosmic-applets
+      - cosmic-bg
+      - cosmic-config-fedora
+      - cosmic-edit
+      - cosmic-files
+      - cosmic-greeter
+      - cosmic-icon-theme
+      - cosmic-idle
+      - cosmic-notifications
+      - cosmic-osd
+      - cosmic-screenshot
+      - cosmic-settings
+      - cosmic-settings-daemon
+      - cosmic-store
+      - cosmic-term
+      - cosmic-workspaces
+      - xdg-desktop-portal-cosmic
+
+    # Install VScode
+  - type: rpm-ostree
+    repos:
+      - https://packages.microsoft.com/yumrepos/vscode/config.repo
+    keys:
+      - https://packages.microsoft.com/keys/microsoft.asc
+    install:
+      - code
+
+    # Install Tailscale
+  - type: rpm-ostree
+    repos:
+      - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+    install:
+      - tailscale
+
+  - type: systemd
+    system:
+      enable:
+        - tailscaled.service
+
+  # - type: files
+  #   files:
+  #     - source: system
+  #       destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+
+  # - type: dnf
+  #   repos:
+  #     copr:
+  #       - atim/starship
+  #   install:
+  #     packages:
+  #       - micro
+  #       - starship
+  #   remove:
+  #     packages:
+  #       # example: removing firefox (in favor of the flatpak)
+  #       # "firefox" is the main package, "firefox-langpacks" is a dependency
+  #       - firefox
+  #       - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
 
   - type: default-flatpaks
     configurations:
