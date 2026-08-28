@@ -1,12 +1,12 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: performa-nvidia
+name: performa-dx-nvidia
 # description will be included in the image's metadata
-description: A performant spin with the COSMIC desktop.
+description: A performant spin with the KDE desktop.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/base-main
+base-image: ghcr.io/ublue-os/aurora
 image-version: latest # You can pin to a specific version of Fedora as well
 
 # module configuration, executed in order
@@ -16,12 +16,6 @@ modules:
   - type: akmods
     install: [] 
     nvidia-driver: nvidia
-
-    # COSMIC install
-  - type: dnf
-    install:
-      packages:
-        - "@cosmic-desktop-environment"
 
     # Install VScode
   - type: dnf
@@ -35,20 +29,20 @@ modules:
         - code
 
     # Install Tailscale
-  - type: dnf
-    repos:
-      files:
-        - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
-      keys:
-        - https://pkgs.tailscale.com/stable/fedora/repo.gpg
-    install:
-      packages:
-        - tailscale
+  # - type: dnf
+  #   repos:
+  #     files:
+  #       - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+  #     keys:
+  #       - https://pkgs.tailscale.com/stable/fedora/repo.gpg
+  #   install:
+  #     packages:
+  #       - tailscale
 
-  - type: systemd
-    system:
-      enable:
-        - tailscaled.service
+  # - type: systemd
+  #   system:
+  #     enable:
+  #       - tailscaled.service
 
   # - type: files
   #   files:
@@ -76,9 +70,8 @@ modules:
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
+          # - org.mozilla.firefox
           - org.libreoffice.LibreOffice
-          - org.gnome.Loupe
       - scope: user # Also add Flathub user repo, but no user packages
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
