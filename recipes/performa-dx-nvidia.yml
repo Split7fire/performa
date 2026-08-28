@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# image will be published to ghcr.io/<user>/<name>
+name: performa-dx-nvidia
+# description will be included in the image's metadata
+description: A performant spin with the KDE desktop. DX image with nvidia driver (Maxwell and Pascal)
+
+# the base image to build on top of (FROM) and the version tag to use
+base-image: ghcr.io/split7fire/performa-dx
+image-version: latest # You can pin to a specific version of Fedora as well
+
+# module configuration, executed in order
+# you can include multiple instances of the same module
+modules:
+    # Nvidia closed source install
+  - type: akmods
+    install: [] 
+    nvidia-driver: nvidia
+
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully

@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# image will be published to ghcr.io/<user>/<name>
+name: performa-dx-nvidia
+# description will be included in the image's metadata
+description: A performant spin with the KDE desktop. DX image
+
+# the base image to build on top of (FROM) and the version tag to use
+base-image: ghcr.io/split7fire/performa
+image-version: latest # You can pin to a specific version of Fedora as well
+
+# module configuration, executed in order
+# you can include multiple instances of the same module
+modules:
+    # Install VScode
+  - type: dnf
+    repos:
+      files:
+        - https://packages.microsoft.com/yumrepos/vscode/config.repo
+      keys:
+        - https://packages.microsoft.com/keys/microsoft.asc
+    install:
+      packages:
+        - code
+
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully
