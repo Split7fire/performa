@@ -27,6 +27,7 @@ jobs:
       matrix:
         recipe:
           - performa.yml
+          - performa-nvidia.yml
           - performa-dx.yml
           - performa-dx-nvidia.yml
     steps:

@@ -1,6 +1,6 @@
 # Performa &nbsp; [![bluebuild build badge](https://github.com/split7fire/performa/actions/workflows/build.yml/badge.svg)](https://github.com/split7fire/performa/actions/workflows/build.yml)
 
-Highly opiniated Aurora spin.
+Highly opinionated Aurora spin.
 
 - performa - base image
 - performa-dx - base image + vscode
