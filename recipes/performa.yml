@@ -12,6 +12,68 @@ image-version: latest # You can pin to a specific version of Fedora as well
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
+  # Install Linux kernel driver for Xbox One and Xbox Series X|S accessories
+  - type: akmods
+    install:
+      - xone
+
+
+  # Install system packages
+  - type: dnf
+    install:
+      packages:
+      # Utilities
+      - clinfo
+      - evtest
+      - fastfetch
+      - foo2zjs
+      - git-credential-libsecret
+      - google-noto-sans-cham-fonts
+      - google-noto-sans-linear-a-fonts
+      - google-noto-sans-linear-b-fonts
+      - libxcrypt-compat
+      - lm_sensors
+      - oddjob-mkhomedir
+      - powertop
+      - setools-console
+      # KDE Plasma
+      - plasma-desktop
+      - plasma-login-manager
+      - kcm-plasmalogin
+      - plasma-nm
+      - konsole
+      - dolphin
+
+  - type: systemd
+    system:
+      enabled:
+        - plasmalogin.service
+    
+
+  # Install Tailscale
+  - type: dnf
+    repos:
+      files:
+        - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+      keys:
+        - https://pkgs.tailscale.com/stable/fedora/repo.gpg
+    install:
+      packages:
+        - tailscale
+
+  - type: systemd
+    system:
+      enable:
+        - tailscaled.service
+
+
+  # Disable NetworkManager Wait Online
+  - type: systemd
+    system:
+      disabled:
+        - NetworkManager-wait-online.service
+
+
   - type: default-flatpaks
     configurations:
       - notify: true # Send notification after install/uninstall is finished (true/false)
