@@ -14,8 +14,14 @@ image-version: latest # You can pin to a specific version of Fedora as well
 modules:
     # Nvidia closed source install
   - type: akmods
-    install: [] 
+    install: []
     nvidia-driver: nvidia
 
+  - type: kargs
+    arch: x86_64
+    kargs:
+      - rd.driver.blacklist=nouveau
+      - modprobe.blacklist=nouveau
+      - nvidia-drm.modeset=1
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
