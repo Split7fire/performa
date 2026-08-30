@@ -85,6 +85,9 @@ modules:
         - scx-tools
         - scx-manager
 
+  # Install Brew
+  - type: brew
+    brew-analytics: false # disable telemetry
 
   - type: default-flatpaks
     configurations:
