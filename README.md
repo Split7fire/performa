@@ -1,45 +1,41 @@
 # Performa &nbsp; [![bluebuild build badge](https://github.com/split7fire/performa/actions/workflows/build.yml/badge.svg)](https://github.com/split7fire/performa/actions/workflows/build.yml)
 
-Highly opinionated KDE desktop.
+**Performa** is a highly opinionated, custom operating system image built on top of the KDE Plasma desktop environment using the BlueBuild framework. It is tailored for maximum system responsiveness, streamlined developer experience (DX), and out-of-the-box hardware compatibility.
 
-- performa - base image
-- performa-dx - base image + vscode
-- performa-dx-nvidia - performa-dx + nvidia driver (Maxwell and Pascal)
+---
 
-## Installation
+## 📦 Image Flavors
 
-> [!WARNING]  
-> [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
+The project is automatically built and maintained in several variants to suit different hardware configurations and workflows:
 
-To rebase an existing atomic Fedora installation to the latest build:
+### 🔹 Performa (Base Image)
+The core lightweight image featuring essential system optimizations and desktop apps:
+* **Drivers:** `Xone` pre-installed for seamless Xbox controller support.
+* **Networking:** `Tailscale` mesh VPN baked right into the system.
+* **Kernel & Scheduling:** `Sched_ext` (Extensible Scheduler Class) support for maximum gaming and desktop responsiveness under load.
+* **Package Management:** `Homebrew` (Brew) pre-configured to install CLI tools without mutating the read-only root filesystem.
+* **Office Suite:** `LibreOffice` managed safely via Flatpak.
 
-- First rebase to the unsigned image, to get the proper signing keys and policies installed:
-  ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/split7fire/performa:latest
-  ```
-- Reboot to complete the rebase:
-  ```
-  systemctl reboot
-  ```
-- Then rebase to the signed image, like so:
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/split7fire/performa:latest
-  ```
-- Reboot again to complete the installation
-  ```
-  systemctl reboot
-  ```
+### 🔹 Performa-DX (Developer Experience)
+Extends the base image with industry-standard development environments:
+* **IDE:** `Visual Studio Code`.
+* **Containers:** `Docker` engine configured and ready to use.
+* **Virtualization:** `VMware Workstation` integration.
 
-The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `recipe.yml`, so you won't get accidentally updated to the next major version.
+### 🔹 Performa-Nvidia
+The base image bundled with legacy/specific **NVIDIA** proprietary drivers tailored for **Maxwell and Pascal** architectures (GTX 750 Ti, 9xx, 10xx series).
 
-## ISO
+### 🔹 Performa-DX-Nvidia
+The ultimate flavor combining all Developer Experience tools with Maxwell/Pascal NVIDIA driver support.
 
-If build on Fedora Atomic, you can generate an offline ISO with the instructions available [here](https://blue-build.org/how-to/generate-iso/#_top). These ISOs cannot unfortunately be distributed on GitHub for free due to large sizes, so for public projects something else has to be used for hosting.
+---
 
-## Verification
+## 💿 Installation
 
-These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign). You can verify the signature by downloading the `cosign.pub` file from this repo and running the following command:
+### ISO Installation
+You can clean-install the system by flashing one of our ready-to-use ISO images:
 
-```bash
-cosign verify --key cosign.pub ghcr.io/split7fire/performa
-```
+| Flavor | ISO Download | Verification |
+| :--- | :--- | :--- |
+| **Performa Base** | [Download ISO](https://performa.neovi.ru/performa-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-latest.iso-CHECKSUM) |
+| **Performa Nvidia** | [Download ISO](https://performa.neovi.ru/performa-nvidia-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-nvidia-latest.iso-CHECKSUM) |

@@ -63,7 +63,7 @@ modules:
 
   - type: systemd
     system:
-      enable:
+      enabled:
         - tailscaled.service
 
 

@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
 
 # Base Performa image
-docker run  --rm -it --privileged -v "$(pwd)":"$(pwd)" -v /var/run/docker.sock:/var/run/docker.sock -w "$(pwd)" \
-            ghcr.io/blue-build/cli:latest bluebuild generate-iso --iso-name performa-latest.iso image ghcr.io/split7fire/performa
+docker run  --rm -it --privileged -v "$(pwd)":/build-container-installer/build:z --pull=always \
+            ghcr.io/jasonn3/build-container-installer:latest \
+            IMAGE_REPO="ghcr.io/split7fire" \
+            IMAGE_NAME="performa" \
+            IMAGE_TAG="latest" \
+            VARIANT="Kinoite" \
+            ISO_NAME="build/performa-latest.iso"
+
 
 # Performa-nvidia image
-docker run  --rm -it --privileged -v "$(pwd)":"$(pwd)" -v /var/run/docker.sock:/var/run/docker.sock -w "$(pwd)" \
-            ghcr.io/blue-build/cli:latest bluebuild generate-iso --iso-name performa-nvidia-latest.iso image ghcr.io/split7fire/performa-nvidia
+docker run  --rm -it --privileged -v "$(pwd)":/build-container-installer/build:z --pull=always \
+            ghcr.io/jasonn3/build-container-installer:latest \
+            IMAGE_REPO="ghcr.io/split7fire" \
+            IMAGE_NAME="performa-nvidia" \
+            IMAGE_TAG="latest" \
+            VARIANT="Kinoite" \
+            ISO_NAME="build/performa-nvidia-latest.iso"
