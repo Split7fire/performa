@@ -48,7 +48,7 @@ modules:
     system:
       enabled:
         - plasmalogin.service
-        - kde-initial-setup.service
+        - plasma-setup.service
     
 
   # Install Tailscale
