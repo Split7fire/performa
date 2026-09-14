@@ -38,6 +38,7 @@ modules:
       - setools-console
       # KDE Plasma
       - plasma-desktop
+      - plasma-setup
       - plasma-login-manager
       - kcm-plasmalogin
       - plasma-nm
