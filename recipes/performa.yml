@@ -38,7 +38,6 @@ modules:
       - setools-console
       # KDE Plasma
       - plasma-desktop
-      - plasma-welcome
       - plasma-login-manager
       - kcm-plasmalogin
       - plasma-nm
@@ -49,6 +48,7 @@ modules:
     system:
       enabled:
         - plasmalogin.service
+        - kde-initial-setup.service
     
 
   # Install Tailscale
