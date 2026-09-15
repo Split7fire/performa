@@ -53,6 +53,11 @@ modules:
         
 
   # Install VMware Workstation
+  - type: dnf
+    install:
+      packages:
+        - kernel-devel
+        
   - type: script
     scripts:
       - install-vmware.sh
