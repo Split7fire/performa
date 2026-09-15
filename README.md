@@ -38,4 +38,6 @@ You can clean-install the system by flashing one of our ready-to-use ISO images:
 | Flavor | ISO Download | Verification |
 | :--- | :--- | :--- |
 | **Performa Base** | [Download ISO](https://performa.neovi.ru/performa-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-latest.iso-CHECKSUM) |
+| **Performa DX** | [Download ISO](https://performa.neovi.ru/performa-dx-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-dx-latest.iso-CHECKSUM) |
 | **Performa Nvidia** | [Download ISO](https://performa.neovi.ru/performa-nvidia-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-nvidia-latest.iso-CHECKSUM) |
+| **Performa DX Nvidia** | [Download ISO](https://performa.neovi.ru/performa-dx-nvidia-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-dx-nvidia-latest.iso-CHECKSUM) |
