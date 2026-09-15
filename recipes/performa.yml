@@ -42,16 +42,17 @@ modules:
       - plasma-login-manager
       - kcm-plasmalogin
       - plasma-nm
+      - plasma-discover
       - konsole
       - dolphin
 
   - type: systemd
     system:
       enabled:
-        - plasmalogin.service
         - plasma-setup.service
+        - plasmalogin.service
+        
     
-
   # Install Tailscale
   - type: dnf
     repos:
@@ -97,7 +98,6 @@ modules:
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
           - org.libreoffice.LibreOffice
       - scope: user # Also add Flathub user repo, but no user packages
 
