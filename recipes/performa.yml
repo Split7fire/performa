@@ -43,6 +43,7 @@ modules:
       - kcm-plasmalogin
       - plasma-nm
       - plasma-discover
+      - kscreen
       - konsole
       - dolphin
 
