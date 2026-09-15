@@ -87,6 +87,8 @@ modules:
         - scx-scheds
         - scx-tools
         - scx-manager
+        - dwarves # Pahole & friends
+        
 
   # Install Brew
   - type: brew
