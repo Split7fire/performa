@@ -3,7 +3,7 @@
 # image will be published to ghcr.io/<user>/<name>
 name: performa
 # description will be included in the image's metadata
-description: A performant spin with the KDE desktop. Base image
+description: A performant spin with the COSMIC desktop. Base image
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/base-main
@@ -12,10 +12,20 @@ image-version: latest # You can pin to a specific version of Fedora as well
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
-  # Install Linux kernel driver for Xbox One and Xbox Series X|S accessories
+  # Disable RPM signature verification for locally compiled kmod packages
+  - type: script
+    snippets:
+      - "echo '%_pkgverify_level none' > /etc/rpm/macros.verify"
+
+  # Install Advanced Linux Driver for Xbox One Wireless Gamepad
   - type: akmods
     install:
-      - xone
+      - xpadneo
+
+  # Restore strict RPM signature verification
+  - type: script
+    snippets:
+      - "rm -f /etc/rpm/macros.verify"
 
 
   # Install system packages
@@ -36,21 +46,28 @@ modules:
       - oddjob-mkhomedir
       - powertop
       - setools-console
-      # KDE Plasma
-      - plasma-desktop
-      - plasma-setup
-      - plasma-login-manager
-      - kcm-plasmalogin
-      - plasma-nm
-      - kscreen
-      - konsole
-      - dolphin
+      # COSMIC Desktop (https://forge.fedoraproject.org/atomic-desktops/config/src/branch/main/packages/cosmic-atomic.yaml)
+      # - ark
+      - cosmic-edit
+      - cosmic-files
+      - cosmic-initial-setup
+      # - cosmic-player
+      - cosmic-session
+      - cosmic-store
+      - cosmic-term
+      - flatpak
+      - gnome-disk-utility
+      # - gnome-system-monitor
+      - mesa-dri-drivers
+      - mesa-vulkan-drivers
+      - pam_oo7
+      - plymouth-system-theme
+      - system-config-printer
 
   - type: systemd
     system:
       enabled:
-        - plasma-setup.service
-        - plasmalogin.service
+        - cosmic-greeter.service
         
     
   # Install Tailscale
@@ -87,7 +104,6 @@ modules:
         - scx-scheds
         - scx-tools
         - scx-manager
-        - dwarves # Pahole & friends
         
 
   # Install Brew
@@ -100,7 +116,11 @@ modules:
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
-          - io.github.kolunmi.Bazaar
+          - org.mozilla.firefox
+          - io.missioncenter.MissionCenter
+          - com.github.tchx84.Flatseal
+          - io.github.flattool.Ignition
+          - io.mpv.Mpv
           - org.libreoffice.LibreOffice
       # - scope: user # Also add Flathub user repo, but no user packages
 

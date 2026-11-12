@@ -3,7 +3,7 @@
 # image will be published to ghcr.io/<user>/<name>
 name: performa-dx
 # description will be included in the image's metadata
-description: A performant spin with the KDE desktop. DX image
+description: A performant spin with the COSMIC desktop. DX image
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/split7fire/performa
@@ -50,17 +50,6 @@ modules:
     system:
       enabled:
         - docker.service
-        
-
-  # Install VMware Workstation
-  - type: dnf
-    install:
-      packages:
-        - kernel-devel
-        
-  - type: script
-    scripts:
-      - install-vmware.sh
 
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully

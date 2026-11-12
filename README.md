@@ -1,6 +1,6 @@
 # Performa &nbsp; [![bluebuild build badge](https://github.com/split7fire/performa/actions/workflows/build.yml/badge.svg)](https://github.com/split7fire/performa/actions/workflows/build.yml)
 
-**Performa** is a highly opinionated, custom operating system image built on top of the KDE Plasma desktop environment using the BlueBuild framework. It is tailored for maximum system responsiveness, streamlined developer experience (DX), and out-of-the-box hardware compatibility.
+**Performa** is a highly opinionated, custom operating system image built on top of the COSMIC desktop environment using the BlueBuild framework. It is tailored for maximum system responsiveness, streamlined developer experience (DX), and out-of-the-box hardware compatibility.
 
 ---
 
@@ -10,7 +10,7 @@ The project is automatically built and maintained in several variants to suit di
 
 ### 🔹 Performa (Base Image)
 The core lightweight image featuring essential system optimizations and desktop apps:
-* **Drivers:** `Xone` pre-installed for seamless Xbox controller support.
+* **Drivers:** `xpadneo` pre-installed for seamless Xbox controller support.
 * **Networking:** `Tailscale` mesh VPN baked right into the system.
 * **Kernel & Scheduling:** `Sched_ext` (Extensible Scheduler Class) support for maximum gaming and desktop responsiveness under load.
 * **Package Management:** `Homebrew` (Brew) pre-configured to install CLI tools without mutating the read-only root filesystem.
@@ -20,7 +20,6 @@ The core lightweight image featuring essential system optimizations and desktop 
 Extends the base image with industry-standard development environments:
 * **IDE:** `Visual Studio Code`.
 * **Containers:** `Docker` engine configured and ready to use.
-* **Virtualization:** `VMware Workstation` integration.
 
 ### 🔹 Performa-Nvidia
 The base image bundled with legacy/specific **NVIDIA** proprietary drivers tailored for **Maxwell and Pascal** architectures (GTX 750 Ti, 9xx, 10xx series).
@@ -33,11 +32,23 @@ The ultimate flavor combining all Developer Experience tools with Maxwell/Pascal
 ## 💿 Installation
 
 ### ISO Installation
-You can clean-install the system by flashing one of our ready-to-use ISO images:
+You can clean-install the system by flashing [official Fedora COSMIC Atomic ISO image](https://fedoraproject.org/atomic-desktops/cosmic/)
 
-| Flavor | ISO Download | Verification |
-| :--- | :--- | :--- |
-| **Performa Base** | [Download ISO](https://performa.neovi.ru/performa-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-latest.iso-CHECKSUM) |
-| **Performa DX** | [Download ISO](https://performa.neovi.ru/performa-dx-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-dx-latest.iso-CHECKSUM) |
-| **Performa Nvidia** | [Download ISO](https://performa.neovi.ru/performa-nvidia-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-nvidia-latest.iso-CHECKSUM) |
-| **Performa DX Nvidia** | [Download ISO](https://performa.neovi.ru/performa-dx-nvidia-latest.iso) | [Checksum File](https://performa.neovi.ru/performa-dx-nvidia-latest.iso-CHECKSUM) |
+To rebase an existing atomic Fedora installation to the latest build:
+
+- First rebase to the unsigned image, to get the proper signing keys and policies installed:
+  ```
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/blue-build/template:latest
+  ```
+- Reboot to complete the rebase:
+  ```
+  systemctl reboot
+  ```
+- Then rebase to the signed image, like so:
+  ```
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/blue-build/template:latest
+  ```
+- Reboot again to complete the installation
+  ```
+  systemctl reboot
+  ```

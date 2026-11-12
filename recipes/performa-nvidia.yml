@@ -3,7 +3,7 @@
 # image will be published to ghcr.io/<user>/<name>
 name: performa-nvidia
 # description will be included in the image's metadata
-description: A performant spin with the KDE desktop. Base image with nvidia driver (Maxwell and Pascal)
+description: A performant spin with the COSMIC desktop. Base image with nvidia driver (Maxwell and Pascal)
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/split7fire/performa
